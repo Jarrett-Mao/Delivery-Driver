@@ -5,6 +5,15 @@ using UnityEngine;
 public class Driver : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField]
+    float steerSpeed = 0.1f;
+    [SerializeField]
+    float moveSpeed = 0.01f;
+
+    //control variables
+    float steerAmount;
+    float moveAmount;
+
     void Start()
     {
         
@@ -13,6 +22,10 @@ public class Driver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0, 0, 0.1f);
+        steerAmount = Input.GetAxis("Horizontal") * steerSpeed; 
+        moveAmount = Input.GetAxis("Vertical") * moveSpeed;
+        steerAmount = steerAmount * -1;
+        transform.Rotate(0, 0, steerAmount);
+        transform.Translate(0f, moveAmount, 0f);
     }
 }
